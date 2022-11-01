@@ -13,9 +13,9 @@ A little django code sugar.
     ]
     ```
 
-2. Inherit your models from `django_sweet_utils.models.Model`:
+2. Inherit your models from `django_sweet_utils.db.models.Model`:
    ```
-   from django_sweet_utils.models import Model
+   from django_sweet_utils.db.models import Model
    
    
    class MyModel(Model):
@@ -28,7 +28,7 @@ A little django code sugar.
       - `updated_at` as object last update time;
       - `is_deleted` as indicator that object is deleted or not;
    
-   Also, from now your models that inherited from `django_sweet_utils.models.Model` can be filtered with simple `existing()` property:
+   Also, from now your models that inherited from `django_sweet_utils.db.models.Model` can be filtered with simple `existing()` property:
    ```
    queryset = MyModel.objectst.existing()
 
@@ -51,3 +51,19 @@ A little django code sugar.
    From now your views supports `POST` request method instead of `PATCH` and `DELETE`
    DestroyAPIView does not perform actual database deletion, but only marks file as deleted with `is_deleted=True`
 
+4. In your project settings file import settings from `django_sweet_utils`:
+   ```
+   from django_sweet_utils.settings import *
+   ```
+   
+   So now you don't need to specify `.env` file and load variables from it, `django_sweet_utils` does it for you.
+   Here is other settings added by me:
+   ```
+   DEBUG = False if os.getenv('DJANGO_DEBUG') == 'False' else True
+   
+   STATIC_ROOT = BASE_DIR / 'assets'
+   
+   STATICFILES_DIRS = [
+       BASE_DIR / 'static',
+   ]   
+   ```
