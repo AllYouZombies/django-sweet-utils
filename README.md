@@ -51,4 +51,3 @@ A little django code sugar.
    From now your views supports `POST` request method instead of `PATCH` and `DELETE`
    DestroyAPIView does not perform actual database deletion, but only marks file as deleted with `is_deleted=True`
 
-
