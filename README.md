@@ -30,8 +30,14 @@ A little django code sugar.
    
    Also, from now your models that inherited from `django_sweet_utils.db.models.Model` can be filtered with simple `existing()` property:
    ```
-   queryset = MyModel.objectst.existing()
-
+   from django_sweet_utils.db.models import Model
+   
+   
+   class MyModel(Model):
+      ...
+   
+   
+   queryset = MyModel.objects.existing()
    ```
    This returns queryset filtered by `is_deleted=False`
 
