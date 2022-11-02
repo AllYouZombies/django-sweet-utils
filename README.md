@@ -56,20 +56,3 @@ A little django code sugar.
    
    From now your views supports `POST` request method instead of `PATCH` and `DELETE`
    DestroyAPIView does not perform actual database deletion, but only marks file as deleted with `is_deleted=True`
-
-4. In your project settings file import settings from `django_sweet_utils`:
-   ```
-   from django_sweet_utils.settings import *
-   ```
-   
-   So now you don't need to specify `.env` file and load variables from it, `django_sweet_utils` does it for you.
-   Here is other settings added by me:
-   ```
-   DEBUG = False if os.getenv('DJANGO_DEBUG') == 'False' else True
-   
-   STATIC_ROOT = BASE_DIR / 'assets'
-   
-   STATICFILES_DIRS = [
-       BASE_DIR / 'static',
-   ]   
-   ```
