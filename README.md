@@ -28,7 +28,7 @@ A little django code sugar.
       - `updated_at` as object last update time;
       - `is_deleted` as indicator that object is deleted or not;
    
-   Also, from now your models that inherited from `django_sweet_utils.db.models.Model` can be filtered with simple `existing()` property:
+   Models that inherited from `django_sweet_utils.db.models.Model` can be filtered with simple `existing()` property:
    ```
    from django_sweet_utils.db.models import Model
    
@@ -40,6 +40,9 @@ A little django code sugar.
    queryset = MyModel.objects.existing()
    ```
    This returns queryset filtered by `is_deleted=False`
+
+   Also, now you don't need to catch `DoesNotExist` error when attempting to get some object while it does not exist.
+   Just use `get_or_none()` instead of `get()` and query returns None if there is no object.
 
 3. Inherit your DRF API views from `django_sweet_utils.api.views`:
    ```

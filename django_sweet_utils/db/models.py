@@ -31,3 +31,10 @@ class Model(models.Model):
 
     class Meta:
         abstract = True
+
+    def get_or_none(self, **kwargs):
+        try:
+            return self.objects.get(**kwargs)
+        except self.DoesNotExist:
+            return None
+
