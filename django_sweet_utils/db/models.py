@@ -13,6 +13,12 @@ class Manager(models.Manager):
     def existing(self):
         return self.filter(is_deleted=False)
 
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
 
 class Model(models.Model):
     """ Base model with the following additions:
@@ -31,10 +37,3 @@ class Model(models.Model):
 
     class Meta:
         abstract = True
-
-    def get_or_none(self, **kwargs):
-        try:
-            return self.objects.get(**kwargs)
-        except self.DoesNotExist:
-            return None
-
