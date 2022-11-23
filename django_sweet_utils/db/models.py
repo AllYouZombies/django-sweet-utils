@@ -1,6 +1,7 @@
+import uuid
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-import uuid
 
 
 class Manager(models.Manager):
@@ -28,12 +29,13 @@ class Model(models.Model):
         - is_deleted as indicator that object is deleted or not;
      """
 
-    id = models.UUIDField(_('ID'), default=uuid.uuid4, primary_key=True)
-    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
-    updated_at = models.DateTimeField(_('updated at'), auto_now=True)
+    id = models.UUIDField(_('ID'), default=uuid.uuid4, primary_key=True, editable=False)
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(_('updated at'), auto_now=True, editable=False)
     is_deleted = models.BooleanField(_('is deleted'), default=False)
 
     objects = Manager()
 
     class Meta:
         abstract = True
+
