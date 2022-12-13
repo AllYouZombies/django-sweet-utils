@@ -1,9 +1,10 @@
-import json
 import logging
+import sys
 import traceback
 
 from json_log_formatter import VerboseJSONFormatter
 from logstash_async.handler import AsynchronousLogstashHandler
+from django.conf import settings
 
 
 class CustomisedJSONFormatter(VerboseJSONFormatter):
@@ -13,10 +14,11 @@ class CustomisedJSONFormatter(VerboseJSONFormatter):
             context.pop('request')
         except KeyError:
             pass
+
         return {
             'message': message,
             'level': record.levelname,
-            'app': 'ras-main',
+            'app': settings.APP_LABEL,
             **context
         }
 
@@ -27,11 +29,9 @@ class CustomFilter(logging.Filter):
         def _get_trace():
             trace = None
             if record.levelname in ['ERROR', 'CRITICAL']:
-                # Get the recent stack-trace
-                exc = traceback.format_exc().strip()
-                if exc[0:len('NoneType: None')] != 'NoneType: None':
-                    trace = exc
-            return json.dumps(trace) if trace else None
+                type_, value_, traceback_ = sys.exc_info()
+                trace = "".join(traceback.format_exception(type_, value_, traceback_))
+            return trace if trace else None
 
         record.trace = _get_trace()
         if self.nlen == 0:
