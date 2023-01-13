@@ -4,12 +4,17 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+class FakeDeletionQuerySet(models.query.QuerySet):
+    def delete(self):
+        self.update(is_deleted=True)
+
+
 class Manager(models.Manager):
     """ Base manager with the following additions:
         - 'existing()' method that filters queryset by 'is_deleted=False'
     """
     def get_queryset(self):
-        return super(Manager, self).get_queryset()
+        return FakeDeletionQuerySet(self.model, using=self._db)
 
     def existing(self):
         return self.filter(is_deleted=False)
