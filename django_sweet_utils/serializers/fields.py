@@ -27,7 +27,7 @@ class MultipleChoiceField(serializers.MultipleChoiceField):
         try:
             value = ast.literal_eval(str(value))
         except (ValueError, SyntaxError):
-            value = list(value, )
+            value = [value, ]
         result = list(
             {
                 'value': item,
