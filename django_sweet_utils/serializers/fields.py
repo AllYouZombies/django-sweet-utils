@@ -24,7 +24,10 @@ class MultipleChoiceField(serializers.MultipleChoiceField):
         )
 
     def to_representation(self, value):
-        value = ast.literal_eval(str(value))
+        try:
+            value = ast.literal_eval(str(value))
+        except (ValueError, SyntaxError):
+            value = list(value, )
         result = list(
             {
                 'value': item,
