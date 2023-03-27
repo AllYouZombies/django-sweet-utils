@@ -37,16 +37,6 @@ class Manager(models.Manager):
         except self.model.DoesNotExist:
             return None
 
-    def delete(self):
-        self.update(is_deleted=True)
-        delete_related(self)
-
-    def save(self, *args, **kwargs):
-        if self.is_deleted:
-            delete_related(self)
-        super().save(*args, **kwargs)
-
-
 
 class Model(models.Model):
     """ Base model with the following additions:
@@ -66,3 +56,12 @@ class Model(models.Model):
 
     class Meta:
         abstract = True
+
+    def delete(self):
+        self.is_deleted = True
+        self.save()
+
+    def save(self, *args, **kwargs):
+        if self.is_deleted:
+            delete_related(self)
+        super().save(*args, **kwargs)
