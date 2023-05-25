@@ -17,6 +17,10 @@ class FakeDeletionQuerySet(models.query.QuerySet):
         for obj in self:
             delete_related(obj)
 
+    # Real deletion
+    def hard_delete(self):
+        super().delete()
+
 
 class Manager(models.Manager):
     """ Base manager with the following additions:
