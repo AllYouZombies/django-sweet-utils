@@ -18,7 +18,7 @@ class CustomisedJSONFormatter(VerboseJSONFormatter):
         return {
             'message': message,
             'level': record.levelname,
-            'app': settings.APP_LABEL + '_' + settings.RUNNING_BRANCH,
+            'app': settings.APP_LABEL + '_' + settings.ENVIRONMENT,
             **context
         }
 
