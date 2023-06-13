@@ -1,7 +1,11 @@
 # Django sweet utils.
 
+[![Downloads](https://static.pepy.tech/personalized-badge/django-sweet-utils?period=total&units=international_system&left_color=black&right_color=orange&left_text=Downloads)](https://pepy.tech/project/django-sweet-utils)
+  
 A little django code sugar.
-
+  
+> If you find this package useful, please star it on [GitHub](https://github.com/AllYouZombies/django-sweet-utils).
+  
 ## Quickstart
 
 1. Add `django_sweet_utils` to your `INSTALLED_APPS` setting like this:
