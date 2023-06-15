@@ -85,7 +85,9 @@ You can get object or `None` if it does not exist with `get_or_none()` method on
 obj = MyModel.objects.get_or_none(pk=1)
 ```
 
-### API Views
+### API
+
+#### Views
 
 Inherit your DRF API views from `django_sweet_utils.api.views`:  
   
@@ -100,7 +102,20 @@ class MyUpdateView(UpdateAPIView):
 class MyDestroyView(DestroyAPIView):
    ...
 ```
-   
+  
+#### Pagination
+
+There is `PageNumberPagination` class that adds `page_size` query parameter to `PageNumberPagination` class.  
+  
+```python
+REST_FRAMEWORK = {
+   ...
+   'DEFAULT_PAGINATION_CLASS': 'django_sweet_utils.api.pagination.PageNumberPagination',
+   'PAGE_SIZE': 10,
+   ...
+}
+```
+  
 From now your views supports `POST` request method instead of `PATCH` and `DELETE`
 DestroyAPIView does not perform actual database deletion, but only marks file as deleted with `is_deleted=True`
   
